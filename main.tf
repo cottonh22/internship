@@ -1,3 +1,4 @@
+# Temporary change to make Git detect file change
 terraform {
   required_providers {
     hyperv = {
