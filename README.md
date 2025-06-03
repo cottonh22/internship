@@ -217,7 +217,7 @@ You should see an Ubuntu Page with the Chnages you made to it.
 How to Install Docker Engine on Ubuntu
 
 1. Install using the 'apt' repository
-   This code is the official Docker installation instructions for Ubuntu:
+   #This code is the official Docker installation instructions for Ubuntu:
        # Add Docker's official GPG key:
 sudo apt-get update
 sudo apt-get install ca-certificates curl
@@ -245,21 +245,21 @@ sudo docker pull ubuntu/apache2
 sudo docker run -d --name apache2-container -p 8080:80 ubuntu/apache2:2.4-22.04_beta
 #To check if your container is running:
 docker ps
-This command should get you the container id (ex. 8521e50a652f)
-Then do this command
+#This command should get you the container id (ex. 8521e50a652f)
+#Then do this command
  docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <container_id>
-Forward incoming traffic on port 8080 to your container's Apache server:
+#Forward incoming traffic on port 8080 to your container's Apache server:
 sudo iptables -t nat -A PREROUTING -p tcp --dport 8080 -j DNAT --to-destination 172.17.0.2:80
-Enable IP Forwarding (So Traffic Can Flow Properly)
+#Enable IP Forwarding (So Traffic Can Flow Properly)
 echo 1 | sudo tee /proc/sys/net/ipv4/ip_forward
-Allow Traffic to Exit the Ubuntu VM
-Apply a masquerading rule so return traffic works:
+#Allow Traffic to Exit the Ubuntu VM
+#Apply a masquerading rule so return traffic works:
 sudo iptables -t nat -A POSTROUTING -p tcp --dport 80 -j MASQUERADE
-Find Your Ubuntu VM’s IP
-This is the IP you’ll use to access the server from your Windows host:
+#Find Your Ubuntu VM’s IP
+#This is the IP you’ll use to access the server from your Windows host:
 ip a
-Access Apache From Your Web Browser
-On your Windows machine, open your browser and go to:
+#Access Apache From Your Web Browser
+#On your Windows machine, open your browser and go to:
 http://000.000.000.000:8080 (ex: http://192.168.239.231:8080)
 
 
