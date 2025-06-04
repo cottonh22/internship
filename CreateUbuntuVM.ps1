@@ -2,7 +2,7 @@
 # Run as Administrator
 
 param(
-    [string]$VMName = "Bob2",
+    [string]$VMName = "Bob3",
     [string]$ISOPath = "C:\ISOs\ubuntu-24.04.2-live-server-amd64.iso",
     [int64]$MemoryStartupBytes = 2GB,
     [int64]$VHDSizeBytes = 40GB,
