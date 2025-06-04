@@ -145,17 +145,18 @@ if ($startNow -eq 'y' -or $startNow -eq 'Y') {
     Write-Host "VM started! Opening VM Connect..." -ForegroundColor Green
     vmconnect localhost $VMName
 }
-When this is done loading you should get a question where you should be able to answer yes ("y)
-After a Virtual Machine screen should pop up on your screen
-Following the installation pages, I just click through without really looking
-Then at some point you should get to a page where it askes you to fill in:
-  Your Name
-  Server Name
-  Username
-  Password
-Whatever you type in doesn't matter, BUT you will have to remember your username and password
-At some point it will ask you to reboot the VM, do that
-  If it doesn't work right away there should be a turn off button close to the top left corner, click that then start ir again
+
+#When this is done loading you should get a question where you should be able to answer yes ("y)
+#After a Virtual Machine screen should pop up on your screen
+#Following the installation pages, I just click through without really looking
+#Then at some point you should get to a page where it askes you to fill in:
+  #Your Name
+  #Server Name
+  #Username
+  3Password
+#Whatever you type in doesn't matter, BUT you will have to remember your username and password
+#At some point it will ask you to reboot the VM, do that
+  #If it doesn't work right away there should be a turn off button close to the top left corner, click that then start ir again
   
 2. #Now you are ready to Configure Ubuntu SSH
 #First still in the VM you need to install ssh on your virtual machine since your VM doesn't have it installed:
