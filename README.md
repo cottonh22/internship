@@ -1,7 +1,7 @@
-This project documents the complete setup of an Ubuntu web server running in a Hyper-V virtual machine, accessible via SSH with Apache web server configured.
-1. Deploy a new Hyper-V VM + Install Ubuntu -
-I use powershell as administator to do this step, and use this code to set it up.
-NOTE - You may have to make changes to this code 
+#This project documents the complete setup of an Ubuntu web server running in a Hyper-V virtual machine, accessible via SSH with Apache web server configured.
+1. #Deploy a new Hyper-V VM + Install Ubuntu -
+#I use powershell as administator to do this step, and use this code to set it up.
+#NOTE - You may have to make changes to this code 
 # Create Ubuntu VM in Hyper-V
 # Run as Administrator
 
@@ -157,24 +157,26 @@ Whatever you type in doesn't matter, BUT you will have to remember your username
 At some point it will ask you to reboot the VM, do that
   If it doesn't work right away there should be a turn off button close to the top left corner, click that then start ir again
   
-2. Now you are ready to Configure Ubuntu SSH
-First still in the VM you need to install ssh on your virtual machine since your VM doesn't have it installed:
-  To do that you use the command: sudo apt install ssh
-Next use this command: 
+2. #Now you are ready to Configure Ubuntu SSH
+#First still in the VM you need to install ssh on your virtual machine since your VM doesn't have it installed:
+  #To do that you use the command:
+    sudo apt install ssh
+#Next use this command: 
   ip addr show
-So you can see the VM IP address
+#So you can see the VM IP address
 
-3. SSH in 
-After getting the IP address from the VM, go back to powershell and ssh to the VM:
+4. #SSH in 
+#After getting the IP address from the VM, go back to powershell and ssh to the VM:
   ssh 000.00.000.000
-For me it won't stay as administrator so I have to, ctrl ^C
-Next ssh to the username you made (in the VM it should be the first word in your command prompt):
-  It should look like this just with your info; ssh username@000.00.000.000
-It will likely ask you for your password, type it in and you should see your command prompt like the one in your VM
-YAY! Now you have SSH in
+#For me it won't stay as administrator so I have to, ctrl ^C
+#Next ssh to the username you made (in the VM it should be the first word in your command prompt):
+  #It should look like this just with your info;
+    ssh username@000.00.000.000
+#It will likely ask you for your password, type it in and you should see your command prompt like the one in your VM
+#YAY! Now you have SSH in
 
-4. Next you will configure Apache, still in powershell
-I use these commands to install Apache:
+6. #Next you will configure Apache, still in powershell
+#I use these commands to install Apache:
 # Update packages
 sudo apt update
 
@@ -189,22 +191,22 @@ sudo systemctl enable apache2
 
 # Check if it's running
 sudo systemctl status apache2
-If at any point it askes you to type in your password, do so
-Apache has now been downloaded.
-Now use this command so you can edit the apache page;
+#If at any point it askes you to type in your password, do so
+#Apache has now been downloaded.
+#Now use this command so you can edit the apache page;
   # Edit the main Apache page
   sudo nano /var/www/html/index.html
-Scroll way down until you find the where is says something like "Apache Main Page"
-If you go to that line, you can chnage that text to be whatever you want it to say. 
-When finished follow the directions at the bottom on the screen to save your changes;
-  The keys to hit are usually; 
+#Scroll way down until you find the where is says something like "Apache Main Page"
+#If you go to that line, you can chnage that text to be whatever you want it to say. 
+#When finished follow the directions at the bottom on the screen to save your changes;
+  #The keys to hit are usually; 
     Ctrl + X - This starts the exit process
     Y - This confirms you want to save the changes
     Enter - This confirms the filename
     
-5. Test your website outside the VM
-Now open any search application on your local device, I like chrome, and type in the IP address for your VM
-You should see an Ubuntu Page with the Chnages you made to it.
+5. #Test your website outside the VM
+#Now open any search application on your local device, I like chrome, and type in the IP address for your VM
+#You should see an Ubuntu Page with the Chnages you made to it.
 
 
 
@@ -216,8 +218,8 @@ You should see an Ubuntu Page with the Chnages you made to it.
 
 How to Install Docker Engine on Ubuntu
 
-1. Install using the 'apt' repository
-   This code is the official Docker installation instructions for Ubuntu:
+1. #Install using the 'apt' repository
+   #This code is the official Docker installation instructions for Ubuntu:
        # Add Docker's official GPG key:
 sudo apt-get update
 sudo apt-get install ca-certificates curl
@@ -238,29 +240,57 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 #Verify that the installation is successful 
  sudo docker run hello-world
 
-2. Run apache container on docker on ubuntu
+2. #Run apache container on docker on ubuntu
 #Pull the image
 sudo docker pull ubuntu/apache2
 #Run the container
 sudo docker run -d --name apache2-container -p 8080:80 ubuntu/apache2:2.4-22.04_beta
 #To check if your container is running:
-docker ps
-This command should get you the container id (ex. 8521e50a652f)
-Then do this command
+sudo docker ps
+#This command should get you the container id (ex. 8521e50a652f)
+#Then do this command
  docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <container_id>
-Forward incoming traffic on port 8080 to your container's Apache server:
+#Forward incoming traffic on port 8080 to your container's Apache server:
 sudo iptables -t nat -A PREROUTING -p tcp --dport 8080 -j DNAT --to-destination 172.17.0.2:80
-Enable IP Forwarding (So Traffic Can Flow Properly)
+#Enable IP Forwarding (So Traffic Can Flow Properly)
 echo 1 | sudo tee /proc/sys/net/ipv4/ip_forward
-Allow Traffic to Exit the Ubuntu VM
-Apply a masquerading rule so return traffic works:
+#Allow Traffic to Exit the Ubuntu VM
+#Apply a masquerading rule so return traffic works:
 sudo iptables -t nat -A POSTROUTING -p tcp --dport 80 -j MASQUERADE
-Find Your Ubuntu VM’s IP
-This is the IP you’ll use to access the server from your Windows host:
+#Find Your Ubuntu VM’s IP
+#This is the IP you’ll use to access the server from your Windows host:
 ip a
-Access Apache From Your Web Browser
-On your Windows machine, open your browser and go to:
+#Modify the Apache Webpage Title
+sudo nano /var/www/html/index.html
+#Find the <title> tag and update it: <title>My Custom Apache Page</title>
+#Save and exit (Ctrl + X, then Y, then Enter).
+#Access Apache From Your Web Browser
+#On your Windows machine, open your browser and go to:
 http://000.000.000.000:8080 (ex: http://192.168.239.231:8080)
+
+
+
+
+
+
+
+
+
+1. #Apache Docker container on one VM, transferring it, and running it on another VM.
+#Commit the Container to an Image
+sudo docker commit apache-container my-custom-apache
+#Save the Image as a .tar File
+sudo docker save -o my-apache-image.tar my-custom-apache
+#Transfer the Image to Another VM (Replace 192.168.X.X with the target VM’s IP.)
+scp my-apache-image.tar user@192.168.X.X:/home/user/
+#Load the Image on the New VM
+sudo docker load -i /home/user/my-apache-image.tar
+#Run the Container on the New VM
+sudo docker run -d --name apache-container -p 8080:80 my-custom-apache
+#Check if it's running:
+sudo docker ps
+#Access Apache in a Browser
+http://192.168.X.X:8080
 
 
 
