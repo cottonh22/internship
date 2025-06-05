@@ -19,6 +19,8 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 #Verify that the installation is successful 
  sudo docker run hello-world
 
+
+
  #Pull the image
 sudo docker pull ubuntu/apache2
 
